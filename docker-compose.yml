@@ -1,18 +1,23 @@
-version: '3'
+version: '3.8'
 services:
-  wdc_crm_api:
+  crm_api-33:
     build: .
     ports:
-      - "3000:3000"
+      - "3033:3000"
     volumes:
       - .:/app
       - /app/node_modules
     environment:
-      - DB_URL=mongodb://mongo:27017/CRMdb
-      - PORT=3000
+      DB_URL: mongodb://localhost:27050/CRMdb-33
+      PORT: 3000
+      STUDENT_NUMBER: 33
     depends_on:
-      - mongo
-  mongo:
-    image: mongo
+      - db-33
+  db-33:
+    image: mongo:latest
     ports:
-      - "27017:27017"
+      - "27050:27017"
+    volumes:
+      - db-vol-33:/data/db
+volumes:
+  db-vol-33:
